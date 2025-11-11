@@ -44,7 +44,12 @@ def update_item(item_id: int, item: itemRequestFormat):
             "description": item.description
         })
         return list_items[item_id]
-        
+
     return {"error": "Item not found"}
 
 # delete to do item
+@app.delete("/todos/{item_id}")
+def delete_item(item_id: int):
+    if item_id in list_items:
+        deleted_item = list_items.pop(item_id)
+        return {"message": "Item deleted", "item": deleted_item}
